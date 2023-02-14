@@ -102,7 +102,7 @@
             "name": "[concat('storage', uniqueString(subscription().subscriptionId))]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "supportsHttpsTrafficOnly": "true"
             },
@@ -117,7 +117,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('virtualMachines_backend_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "hardwareProfile": {
@@ -166,7 +166,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('virtualMachines_frontend1_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
@@ -217,7 +217,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('virtualMachines_frontend2_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
@@ -268,7 +268,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('virtualMachines_SQLSVR1_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "hardwareProfile": {
@@ -321,7 +321,7 @@
             },
             "name": "[parameters('loadBalancers_frenchpress_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
@@ -401,7 +401,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('networkInterfaces_backend_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -446,7 +446,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('networkInterfaces_frontend1VMNic_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
@@ -498,7 +498,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('networkInterfaces_frontend2VMNic_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
@@ -550,7 +550,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('networkInterfaces_SQLSVR1_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -595,7 +595,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "name": "[parameters('networkSecurityGroups_canttouchthis_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -731,7 +731,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "name": "[parameters('networkSecurityGroups_coffeesecure_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -910,7 +910,7 @@
             },
             "name": "[parameters('publicIPAddresses_frenchpress_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
@@ -929,8 +929,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworks_coffeenet_name')]",
             "apiVersion": "2018-10-01",
-            "location": "eastus2",
-            "location": "eastus2",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
