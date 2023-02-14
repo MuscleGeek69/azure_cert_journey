@@ -336,10 +336,7 @@
             "apiVersion": "2022-08-01",
             "name": "[parameters('availabilitySets_CBT_TEST_AV_TEST_name')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_testcbtvm1_name'))]",
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_testcbtvm2_name'))]"
-            ],
+            "dependsOn": [],
             "sku": {
                 "name": "Aligned"
             },
