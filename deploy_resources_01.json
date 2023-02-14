@@ -361,10 +361,7 @@
             "apiVersion": "2022-08-01",
             "name": "[parameters('virtualMachines_testcbtvm1_name')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]",
-                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_testcbtvm1802_name'))]"
-            ],
+            "dependsOn": [],
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]"
@@ -438,10 +435,7 @@
             "apiVersion": "2022-08-01",
             "name": "[parameters('virtualMachines_testcbtvm2_name')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]",
-                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_testcbtvm291_name'))]"
-            ],
+            "dependsOn": [],
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]"
@@ -515,10 +509,7 @@
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkInterfaces_testcbtvm1802_name')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_CBT_TEST_VNET_name'), 'default')]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm1_nsg_name'))]"
-            ],
+            "dependsOn": [],
             "kind": "Regular",
             "properties": {
                 "ipConfigurations": [
@@ -556,10 +547,7 @@
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkInterfaces_testcbtvm291_name')]",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_CBT_TEST_VNET_name'), 'default')]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm2_nsg_name'))]"
-            ],
+            "dependsOn": [],
             "kind": "Regular",
             "properties": {
                 "ipConfigurations": [
