@@ -254,9 +254,7 @@
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('virtualNetworks_CBT_TEST_VNET_name'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_CBT_TEST_VNET_name'))]"
-            ],
+            "dependsOn": [],
             "properties": {
                 "addressPrefix": "10.0.0.0/24",
                 "delegations": [],
@@ -268,9 +266,7 @@
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2022-09-01",
             "name": "[concat(parameters('storageAccounts_teststoragevbtwest_name'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_teststoragevbtwest_name'))]"
-            ],
+            "dependsOn": [],
             "sku": {
                 "name": "Standard_GRS",
                 "tier": "Standard"
@@ -289,9 +285,7 @@
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2022-09-01",
             "name": "[concat(parameters('storageAccounts_teststoragevbtwest_name'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_teststoragevbtwest_name'))]"
-            ],
+            "dependsOn": [],
             "sku": {
                 "name": "Standard_GRS",
                 "tier": "Standard"
