@@ -53,7 +53,7 @@
             "type": "Microsoft.Compute/sshPublicKeys",
             "apiVersion": "2022-08-01",
             "name": "[parameters('sshPublicKeys_Test_Linux_Keys_1_name')]",
-            "location": "[resourceGroup().location]",
+            "location": "eastus",
             "properties": {
                 "publicKey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDqDiCkUtC6RHRtk2+j1a9/V1czNuSCj+o6OJCwaOih6W6Gm7YYVbO7yIYc3gqVCSuqUOIbWNlVMSO7a5OZcHuMO8eiWpqpdbnRhDS1QuowP4xiLAs5vbEISb2xXaxmKVQlDAsVHx/J/Zuy7sjzBf62JCYt3cUd1lRGks7SJvcr0xQrwH10WWddsoEaPay7X54l7S6AgCQd/9IKFVy5m3xeVHx4c3NehlMSSSNOn471xVRYpOdrUBj0IPEVMwBHX3qDmyXqJD7oF+fmyl0r+/+jXfuwHBTe86FjI1dZ+OGkL95wEqnXqmro1APGwh32UcSdAHhlcBURvk7YB6Hizv/qLWpPA0LAXeu7uRLAn/CxFQyY8rrbPG1AZRdhApUb485uLoceau9YRDwQorXW5K++8LS0EKvN7aBp64KaFM+sswwJzpgyqkCxS6MnsLM5Fs1PnDc/WaFLhyOU5Vqtb2SppKc+JV/DLmsuwVBkCcVF8AWImQtv08tIwIEPMRnWrnk= generated-by-azure"
             }
@@ -62,7 +62,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2022-07-01",
             "name": "[parameters('publicIPAddresses_TEST_CBT_PIP_name')]",
-            "location": "[resourceGroup().location]",
+            "location": "eastus",
             "sku": {
                 "name": "Standard",
                 "tier": "Regional"
@@ -79,7 +79,7 @@
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2022-09-01",
             "name": "[parameters('storageAccounts_teststoragevbtwest_name')]",
-            "location": "[resourceGroup().location]",
+            "location": "eastus",
             "sku": {
                 "name": "Standard_GRS",
                 "tier": "Standard"
@@ -115,7 +115,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkSecurityGroups_testcbtvm1_nsg_name')]",
-            "location": "[resourceGroup().location]",
+            "location": "eastus",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', parameters('networkSecurityGroups_testcbtvm1_nsg_name'), 'SSH')]"
             ],
@@ -147,7 +147,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkSecurityGroups_testcbtvm2_nsg_name')]",
-            "location": "[resourceGroup().location]",
+            "location": "eastus",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', parameters('networkSecurityGroups_testcbtvm2_nsg_name'), 'SSH')]"
             ],
@@ -179,7 +179,9 @@
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('networkSecurityGroups_testcbtvm1_nsg_name'), '/SSH')]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm1_nsg_name'))]"
+            ],
             "properties": {
                 "protocol": "TCP",
                 "sourcePortRange": "*",
@@ -199,7 +201,9 @@
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('networkSecurityGroups_testcbtvm2_nsg_name'), '/SSH')]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm2_nsg_name'))]"
+            ],
             "properties": {
                 "protocol": "TCP",
                 "sourcePortRange": "*",
@@ -219,8 +223,10 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2022-07-01",
             "name": "[parameters('virtualNetworks_CBT_TEST_VNET_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_CBT_TEST_VNET_name'), 'default')]"
+            ],
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
@@ -248,7 +254,9 @@
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('virtualNetworks_CBT_TEST_VNET_name'), '/default')]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_CBT_TEST_VNET_name'))]"
+            ],
             "properties": {
                 "addressPrefix": "10.0.0.0/24",
                 "delegations": [],
@@ -260,7 +268,9 @@
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2022-09-01",
             "name": "[concat(parameters('storageAccounts_teststoragevbtwest_name'), '/default')]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_teststoragevbtwest_name'))]"
+            ],
             "sku": {
                 "name": "Standard_GRS",
                 "tier": "Standard"
@@ -279,7 +289,9 @@
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2022-09-01",
             "name": "[concat(parameters('storageAccounts_teststoragevbtwest_name'), '/default')]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_teststoragevbtwest_name'))]"
+            ],
             "sku": {
                 "name": "Standard_GRS",
                 "tier": "Standard"
@@ -323,8 +335,11 @@
             "type": "Microsoft.Compute/availabilitySets",
             "apiVersion": "2022-08-01",
             "name": "[parameters('availabilitySets_CBT_TEST_AV_TEST_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_testcbtvm1_name'))]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_testcbtvm2_name'))]"
+            ],
             "sku": {
                 "name": "Aligned"
             },
@@ -345,8 +360,11 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2022-08-01",
             "name": "[parameters('virtualMachines_testcbtvm1_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_testcbtvm1802_name'))]"
+            ],
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]"
@@ -368,7 +386,7 @@
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Premium_LRS"
-                            },
+                        },
                         "deleteOption": "Delete",
                         "diskSizeGB": 30
                     },
@@ -419,8 +437,11 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2022-08-01",
             "name": "[parameters('virtualMachines_testcbtvm2_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_testcbtvm291_name'))]"
+            ],
             "properties": {
                 "availabilitySet": {
                     "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_CBT_TEST_AV_TEST_name'))]"
@@ -442,7 +463,7 @@
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Standard_LRS"
-                           },
+                        },
                         "deleteOption": "Delete",
                         "diskSizeGB": 30
                     },
@@ -493,8 +514,11 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkInterfaces_testcbtvm1802_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_CBT_TEST_VNET_name'), 'default')]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm1_nsg_name'))]"
+            ],
             "kind": "Regular",
             "properties": {
                 "ipConfigurations": [
@@ -531,8 +555,11 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2022-07-01",
             "name": "[parameters('networkInterfaces_testcbtvm291_name')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_CBT_TEST_VNET_name'), 'default')]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm2_nsg_name'))]"
+            ],
             "kind": "Regular",
             "properties": {
                 "ipConfigurations": [
