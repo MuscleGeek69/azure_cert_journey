@@ -341,7 +341,7 @@
                     },
                     "osDisk": {
                         "osType": "Windows",
-                        "name": "[concat(variables('vmname')), '_OsDisk_1_ef3ab3c577ea4dd5827852baae056008')]",
+                        "name": "[concat(variables('vmname'), '_OsDisk_1_ef3ab3c577ea4dd5827852baae056008')]",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
@@ -365,7 +365,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_backendserver889_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmnic'))]"
                         }
                     ]
                 }
