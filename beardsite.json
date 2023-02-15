@@ -41,7 +41,7 @@
     },
     "variables": {
         "vmname": "backendserver02",
-        "vmnic": "backendserver02900",
+        "vmnic": "backendserver900",
         "vmpip": "backendserver02pip"
     },
     "resources": [
