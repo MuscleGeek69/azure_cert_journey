@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+    "contentVersion": "1.0.0.1",
     "parameters": {
         "virtualMachines_testcbtvm1_name": {
             "defaultValue": "testcbtvm1",
@@ -179,9 +179,7 @@
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('networkSecurityGroups_testcbtvm1_nsg_name'), '/SSH')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm1_nsg_name'))]"
-            ],
+            "dependsOn": [],
             "properties": {
                 "protocol": "TCP",
                 "sourcePortRange": "*",
@@ -201,9 +199,7 @@
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('networkSecurityGroups_testcbtvm2_nsg_name'), '/SSH')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_testcbtvm2_nsg_name'))]"
-            ],
+            "dependsOn": [],
             "properties": {
                 "protocol": "TCP",
                 "sourcePortRange": "*",
