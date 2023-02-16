@@ -117,7 +117,7 @@
             "name": "[parameters('networkSecurityGroups_testcbtvm1_nsg_name')]",
             "location": "eastus",
             "dependsOn": [
-                
+                "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', parameters('networkSecurityGroups_testcbtvm1_nsg_name'), 'SSH')]"
             ],
             "properties": {
                 "securityRules": [
@@ -149,7 +149,7 @@
             "name": "[parameters('networkSecurityGroups_testcbtvm2_nsg_name')]",
             "location": "eastus",
             "dependsOn": [
-               
+                "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', parameters('networkSecurityGroups_testcbtvm2_nsg_name'), 'SSH')]"
             ],
             "properties": {
                 "securityRules": [
@@ -345,19 +345,8 @@
             ],
             "sku": {
                 "name": "Aligned"
-            },
-            "properties": {
-                "platformUpdateDomainCount": 3,
-                "platformFaultDomainCount": 2,
-                "virtualMachines": [
-                    {
-                        "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_testcbtvm1_name'))]"
-                    },
-                    {
-                        "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_testcbtvm2_name'))]"
-                    }
-                ]
             }
+
         },
         {
             "type": "Microsoft.Compute/virtualMachines",
