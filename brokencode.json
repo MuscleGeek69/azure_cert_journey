@@ -117,7 +117,7 @@
             "name": "[parameters('networkSecurityGroups_testcbtvm1_nsg_name')]",
             "location": "eastus",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', parameters('networkSecurityGroups_testcbtvm1_nsg_name'), 'SSH')]"
+                
             ],
             "properties": {
                 "securityRules": [
@@ -149,7 +149,7 @@
             "name": "[parameters('networkSecurityGroups_testcbtvm2_nsg_name')]",
             "location": "eastus",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups/securityRules', parameters('networkSecurityGroups_testcbtvm2_nsg_name'), 'SSH')]"
+               
             ],
             "properties": {
                 "securityRules": [
