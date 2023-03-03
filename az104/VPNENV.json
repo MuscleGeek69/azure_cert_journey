@@ -1,0 +1,166 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "publicIPAddresses_srqh1_s2s_pip_name": {
+            "defaultValue": "srqh1-s2s-pip",
+            "type": "String"
+        },
+        "virtualNetworks_default_s2s_network_name": {
+            "defaultValue": "default_s2s_network",
+            "type": "String"
+        },
+        "virtualNetworkGateways_default_s2s_vpn_name": {
+            "defaultValue": "default-s2s-vpn",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2022-07-01",
+            "name": "[parameters('publicIPAddresses_srqh1_s2s_pip_name')]",
+            "location": "eastus",
+            "sku": {
+                "name": "Standard",
+                "tier": "Regional"
+            },
+            "zones": [
+                "1"
+            ],
+            "properties": {
+                "ipAddress": "20.163.169.117",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2022-07-01",
+            "name": "[concat(parameters('virtualNetworks_default_s2s_network_name'), '/GatewaySubnet')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_default_s2s_network_name'))]"
+            ],
+            "properties": {
+                "addressPrefix": "192.168.1.0/24",
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Disabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2022-07-01",
+            "name": "[concat(parameters('virtualNetworks_default_s2s_network_name'), '/vm-subnets-192.168.0.0-24')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_default_s2s_network_name'))]"
+            ],
+            "properties": {
+                "addressPrefix": "192.168.0.0/24",
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Disabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworkGateways",
+            "apiVersion": "2022-07-01",
+            "name": "[parameters('virtualNetworkGateways_default_s2s_vpn_name')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_srqh1_s2s_pip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'GatewaySubnet')]"
+            ],
+            "properties": {
+                "enablePrivateIpAddress": false,
+                "ipConfigurations": [
+                    {
+                        "name": "default",
+                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworkGateways', parameters('virtualNetworkGateways_default_s2s_vpn_name')), '/ipConfigurations/default')]",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_srqh1_s2s_pip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'GatewaySubnet')]"
+                            }
+                        }
+                    }
+                ],
+                "natRules": [],
+                "virtualNetworkGatewayPolicyGroups": [],
+                "enableBgpRouteTranslationForNat": false,
+                "disableIPSecReplayProtection": false,
+                "sku": {
+                    "name": "VpnGw1AZ",
+                    "tier": "VpnGw1AZ"
+                },
+                "gatewayType": "Vpn",
+                "vpnType": "RouteBased",
+                "enableBgp": false,
+                "activeActive": false,
+                "bgpSettings": {
+                    "asn": 65515,
+                    "bgpPeeringAddress": "192.168.1.254",
+                    "peerWeight": 0,
+                    "bgpPeeringAddresses": [
+                        {
+                            "ipconfigurationId": "[concat(resourceId('Microsoft.Network/virtualNetworkGateways', parameters('virtualNetworkGateways_default_s2s_vpn_name')), '/ipConfigurations/default')]",
+                            "customBgpIpAddresses": []
+                        }
+                    ]
+                },
+                "vpnGatewayGeneration": "Generation1",
+                "allowRemoteVnetTraffic": false,
+                "allowVirtualWanTraffic": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2022-07-01",
+            "name": "[parameters('virtualNetworks_default_s2s_network_name')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'vm-subnets-192.168.0.0-24')]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'GatewaySubnet')]"
+            ],
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "192.168.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "vm-subnets-192.168.0.0-24",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'vm-subnets-192.168.0.0-24')]",
+                        "properties": {
+                            "addressPrefix": "192.168.0.0/24",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Disabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        },
+                        "type": "Microsoft.Network/virtualNetworks/subnets"
+                    },
+                    {
+                        "name": "GatewaySubnet",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'GatewaySubnet')]",
+                        "properties": {
+                            "addressPrefix": "192.168.1.0/24",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Disabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        },
+                        "type": "Microsoft.Network/virtualNetworks/subnets"
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false
+            }
+        }
+    ]
+}
