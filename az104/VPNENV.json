@@ -30,7 +30,7 @@
                 "1"
             ],
             "properties": {
-                "ipAddress": "20.163.169.117",
+                "ipAddress": "",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 4,
