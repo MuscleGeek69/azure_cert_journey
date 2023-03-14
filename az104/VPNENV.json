@@ -56,7 +56,6 @@
             "apiVersion": "2022-07-01",
             "name": "[concat(parameters('virtualNetworks_default_s2s_network_name'), '/vm-subnets-192.168.0.0-24')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_default_s2s_network_name'))]"
             ],
             "properties": {
                 "addressPrefix": "192.168.0.0/24",
