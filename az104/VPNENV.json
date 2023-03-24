@@ -65,60 +65,6 @@
             }
         },
         {
-            "type": "Microsoft.Network/virtualNetworkGateways",
-            "apiVersion": "2022-07-01",
-            "name": "[parameters('virtualNetworkGateways_default_s2s_vpn_name')]",
-            "location": "eastus",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_srqh1_s2s_pip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'GatewaySubnet')]"
-            ],
-            "properties": {
-                "enablePrivateIpAddress": false,
-                "ipConfigurations": [
-                    {
-                        "name": "default",
-                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworkGateways', parameters('virtualNetworkGateways_default_s2s_vpn_name')), '/ipConfigurations/default')]",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_srqh1_s2s_pip_name'))]"
-                            },
-                            "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_default_s2s_network_name'), 'GatewaySubnet')]"
-                            }
-                        }
-                    }
-                ],
-                "natRules": [],
-                "virtualNetworkGatewayPolicyGroups": [],
-                "enableBgpRouteTranslationForNat": false,
-                "disableIPSecReplayProtection": false,
-                "sku": {
-                    "name": "VpnGw1AZ",
-                    "tier": "VpnGw1AZ"
-                },
-                "gatewayType": "Vpn",
-                "vpnType": "RouteBased",
-                "enableBgp": false,
-                "activeActive": false,
-                "bgpSettings": {
-                    "asn": 65515,
-                    "bgpPeeringAddress": "192.168.1.254",
-                    "peerWeight": 0,
-                    "bgpPeeringAddresses": [
-                        {
-                            "ipconfigurationId": "[concat(resourceId('Microsoft.Network/virtualNetworkGateways', parameters('virtualNetworkGateways_default_s2s_vpn_name')), '/ipConfigurations/default')]",
-                            "customBgpIpAddresses": []
-                        }
-                    ]
-                },
-                "vpnGatewayGeneration": "Generation1",
-                "allowRemoteVnetTraffic": false,
-                "allowVirtualWanTraffic": false
-            }
-        },
-        {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2022-07-01",
             "name": "[parameters('virtualNetworks_default_s2s_network_name')]",
