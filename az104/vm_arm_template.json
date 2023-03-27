@@ -17,10 +17,10 @@
       "authenticationType": {
         "type": "string",
         "defaultValue": "sshPublicKey",
-       // "allowedValues": [
-       //   "sshPublicKey",
-       //   "password"
-       // ],
+        "allowedValues": [
+          "sshPublicKey",
+          "password"
+        ],
         "metadata": {
           "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
         }
@@ -256,7 +256,7 @@
           "osProfile": {
             "computerName": "[parameters('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('sshPublicKey')]",
+            "adminPassword": "[parameters('adminPasswordOrKey')]",
             "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'sshPublicKey'), json('null'), variables('linuxConfiguration'))]"
           }
         }
