@@ -21,6 +21,35 @@
           "description": "Specifies a username for the Virtual Machine."
         }
       },
+        "dnsLabelPrefix": {
+        "type": "string",
+        "defaultValue": "[toLower(format('{0}-{1}', parameters('projectName'), uniqueString(resourceGroup().id, parameters('projectName'))))]",
+        "metadata": {
+          "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
+        }
+      },
+        "publicIPAllocationMethod": {
+        "type": "string",
+        "defaultValue": "Dynamic",
+        "allowedValues": [
+          "Dynamic",
+          "Static"
+        ],
+        "metadata": {
+          "description": "Allocation method for the Public IP used to access the Virtual Machine."
+        }
+      },
+        "publicIpSku": {
+        "type": "string",
+        "defaultValue": "Basic",
+        "allowedValues": [
+          "Basic",
+          "Standard"
+        ],
+        "metadata": {
+          "description": "SKU for the Public IP used to access the Virtual Machine."
+        }
+      },
         "publisherName": {
         "type": "string",
         "defaultValue": "Canonical",
@@ -127,10 +156,13 @@
         "name": "[variables('publicIPAddressName')]",
         "location": "[parameters('location')]",
         "properties": {
-          "publicIPAllocationMethod": "Dynamic"
+          "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
+          "dnsSettings": {
+            "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+          }
         },
         "sku": {
-          "name": "Basic"
+          "name": "[parameters('publicIpSku')]"
         }
       },
       {
