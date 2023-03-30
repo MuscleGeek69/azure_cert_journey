@@ -158,7 +158,7 @@
       {
         "type": "Microsoft.Network/publicIPAddresses",
         "apiVersion": "2022-05-01",
-        "name": "[parameters('virtualNetworkName')]",
+        "name": "[variables('publicIPAddressName')]",
         "location": "[parameters('location')]",
         "sku": {
           "name": "[parameters('publicIpSku')]"
@@ -196,7 +196,7 @@
       {
         "type": "Microsoft.Network/virtualNetworks",
         "apiVersion": "2022-05-01",
-        "name": "[variables('virtualNetworkName')]",
+        "name": "[parameters('virtualNetworkName')]",
         "location": "[parameters('location')]",
         "properties": {
           "addressSpace": {
