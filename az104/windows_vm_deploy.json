@@ -92,7 +92,7 @@
       },
       "vmSize": {
         "type": "string",
-        "defaultValue": "Standard_D2s_v5",
+        "defaultValue": "Standard_DS1_v2",
         "metadata": {
           "description": "Size of the virtual machine."
         }
@@ -266,6 +266,7 @@
               "offer": "WindowsServer",
               "sku": "[parameters('OSVersion')]",
               "version": "latest"
+              //Get-AzVMImageSku -Location $locName -PublisherName $pubName -Offer $offerName | Select Skus
             },
             "osDisk": {
               "createOption": "FromImage",
