@@ -26,6 +26,7 @@
         "defaultValue": "Canonical",
         "metadata": {
           "description": "Specifies the offername from Canonical."
+          //Get-AzVMImagePublisher -Location $locName | Select PublisherName
         }
       },
       "ubuntuOfferName": {
@@ -33,6 +34,7 @@
         "defaultValue": "0001-com-ubuntu-minimal-jammy",
         "metadata": {
           "description": "Specifies the offername from Canonical."
+          //Get-AzVMImageOffer -Location $locName -PublisherName $pubName | Select Offer
         }
       },
       "ubuntuOSVersion": {
@@ -48,6 +50,7 @@
       ],
       "metadata": {
         "description": "The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version."
+        //Get-AzVMImageSku -Location $locName -PublisherName $pubName -Offer $offerName | Select Skus
       }
     },
       "adminPublicKey": {
