@@ -21,6 +21,20 @@
           "description": "Specifies a username for the Virtual Machine."
         }
       },
+        "publisherName": {
+        "type": "string",
+        "defaultValue": "Canonical",
+        "metadata": {
+          "description": "Specifies the offername from Canonical."
+        }
+      },
+      "ubuntuOfferName": {
+        "type": "string",
+        "defaultValue": "0001-com-ubuntu-minimal-jammy",
+        "metadata": {
+          "description": "Specifies the offername from Canonical."
+        }
+      },
       "ubuntuOSVersion": {
       "type": "string",
       "defaultValue": "minimal-22_04-lts-gen2",
@@ -213,8 +227,8 @@
             }
           },
           "imageReference": {
-            "publisher": "Canonical",
-            "offer": "UbuntuServer",
+            "publisher": "[parameters('publisherName')]",
+            "offer": "[parameters('ubuntuOfferName')]",
             "sku": "[parameters('ubuntuOSVersion')]",
             "version": "latest"
           }
