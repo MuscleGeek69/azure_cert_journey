@@ -15,6 +15,12 @@
           "description": "Specifies the location for all resources."
         }
       },
+      "virtualNetworkName": {
+        "type": "string",
+        "metadata": {
+          "Description": "The name of the Virtual Network to Create"
+        }
+      },
       "adminUsername": {
         "type": "string",
         "metadata": {
@@ -153,7 +159,7 @@
       {
         "type": "Microsoft.Network/publicIPAddresses",
         "apiVersion": "2020-05-01",
-        "name": "[variables('publicIPAddressName')]",
+        "name": "[parameters('virtualNetworkName')]",
         "location": "[parameters('location')]",
         "properties": {
           "publicIPAllocationMethod": "[parameters('publicIPAllocationMethod')]",
