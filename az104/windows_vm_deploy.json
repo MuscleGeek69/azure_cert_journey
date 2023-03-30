@@ -117,7 +117,7 @@
     },
     "variables": {
       "storageAccountName": "[format('bootdiags{0}', uniqueString(resourceGroup().id))]",
-      "vmName": "[concat(parameters('projectName'), '-vm')]",
+      "vmName": "[concat(parameters('projectName'))]",
       "nicName": "[concat(parameters('projectName'), '-nic')]",
       "publicIPAddressName": "[concat(parameters('projectName'), '-ip')]",
       "addressPrefix": "10.0.0.0/16",
