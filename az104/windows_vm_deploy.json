@@ -30,16 +30,9 @@
       },
       "dnsLabelPrefix": {
         "type": "string",
-        "defaultValue": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id, parameters('vmName'))))]",
+        "defaultValue": "[toLower(format('{0}-{1}', variables('vmName'), uniqueString(resourceGroup().id, variables('vmName'))))]",
         "metadata": {
           "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
-        }
-      },
-      "publicIpName": {
-        "type": "string",
-        "defaultValue": "myPublicIP",
-        "metadata": {
-          "description": "Name for the Public IP used to access the Virtual Machine."
         }
       },
       "publicIPAllocationMethod": {
@@ -108,13 +101,6 @@
         "defaultValue": "[resourceGroup().location]",
         "metadata": {
           "description": "Location for all resources."
-        }
-      },
-      "vmName": {
-        "type": "string",
-        "defaultValue": "simple-vm",
-        "metadata": {
-          "description": "Name of the virtual machine."
         }
       },
       "securityType": {
@@ -264,7 +250,7 @@
             "vmSize": "[parameters('vmSize')]"
           },
           "osProfile": {
-            "computerName": "[parameters('vmName')]",
+            "computerName": "[variables('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
             "adminPassword": "[parameters('adminPassword')]"
           },
@@ -314,7 +300,7 @@
         "condition": "[and(equals(parameters('securityType'), 'TrustedLaunch'), and(equals(variables('securityProfileJson').uefiSettings.secureBootEnabled, true()), equals(variables('securityProfileJson').uefiSettings.vTpmEnabled, true())))]",
         "type": "Microsoft.Compute/virtualMachines/extensions",
         "apiVersion": "2022-03-01",
-        "name": "[format('{0}/{1}', parameters('vmName'), variables('extensionName'))]",
+        "name": "[format('{0}/{1}', variables('vmName'), variables('extensionName'))]",
         "location": "[parameters('location')]",
         "properties": {
           "publisher": "[variables('extensionPublisher')]",
@@ -331,14 +317,14 @@
           }
         },
         "dependsOn": [
-          "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+          "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
         ]
       }
     ],
     "outputs": {
       "hostname": {
         "type": "string",
-        "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName')), '2022-05-01').dnsSettings.fqdn]"
+        "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName')), '2022-05-01').dnsSettings.fqdn]"
       }
     }
   }
