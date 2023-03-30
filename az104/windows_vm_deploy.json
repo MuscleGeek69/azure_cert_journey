@@ -240,7 +240,7 @@
               "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "publicIPAddress": {
-                  "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))]"
+                  "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
                 },
                 "subnet": {
                   "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
@@ -250,7 +250,7 @@
           ]
         },
         "dependsOn": [
-          "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))]",
+          "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
           "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]"
         ]
       },
