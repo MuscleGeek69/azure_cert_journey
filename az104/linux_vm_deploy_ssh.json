@@ -229,7 +229,7 @@
         "location": "[parameters('location')]",
         "dependsOn": [
           "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
-          "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
+          "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
           "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
         ],
         "properties": {
@@ -242,7 +242,7 @@
                   "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
                 },
                 "subnet": {
-                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('vNetSubnetName'))]"
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), variables('vNetSubnetName'))]"
                 }
               }
             }

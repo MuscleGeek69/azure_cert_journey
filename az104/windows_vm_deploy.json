@@ -235,7 +235,7 @@
                   "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
                 },
                 "subnet": {
-                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), variables('subnetName'))]"
                 }
               }
             }
@@ -243,7 +243,7 @@
         },
         "dependsOn": [
           "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]",
-          "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]"
+          "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
         ]
       },
       {
