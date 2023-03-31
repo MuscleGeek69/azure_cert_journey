@@ -109,7 +109,7 @@
       }
     },
     "variables": {
-      "vNetName": "[concat(parameters('projectName'), '-vnet')]",
+      //"vNetName": "[concat(parameters('projectName'), '-vnet')]",
       "vNetAddressPrefixes": "10.0.0.0/16",
       "vNetSubnetName": "default",
       "vNetSubnetAddressPrefix": "10.0.0.0/24",
